@@ -18,6 +18,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 `https://restcountries.com/v3.1/alpha?codes=${borders.join(",")}`
             );
 
+            if (!response.ok) throw new Error("Border fetch failed");
+
             const data = await response.json();
 
             const listItems = data.map(country => `
@@ -40,6 +42,7 @@ document.addEventListener("DOMContentLoaded", function () {
             console.log(error);
         }
     }
+
     async function searchCountry() {
 
         const countryName = input.value.trim();
@@ -51,7 +54,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         try {
             const response = await fetch(
-                `https://restcountries.com/v3.1/name/${countryName}`
+                `https://restcountries.com/v3.1/name/${countryName}?fullText=true`
             );
 
             if (!response.ok) throw new Error("Country not found");
